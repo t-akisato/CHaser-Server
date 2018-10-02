@@ -32,3 +32,6 @@ ruby chsr.rb -z
 
 公式のサーバーと同一の動作を保証するものではありません。
 
+This software is released under the MIT License, see LICENSE.
+
+（このソフトウェアは、MITライセンスのもとで公開されています。LICENSEを見てください。） 
