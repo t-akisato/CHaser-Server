@@ -2,6 +2,11 @@
 #
 # unofficial CHaser Server on Ruby
 #
+# Copyright (c) 2018 Tadakatsu Akisato
+#
+# This software is released under the MIT License.
+# http://opensource.org/licenses/mit-license.php
+#
 # ※公式のサーバーと同一の動作を保証するものではありません。
 
 require 'socket'
