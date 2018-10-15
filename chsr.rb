@@ -1,4 +1,4 @@
-# -*-coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 #
 # unofficial CHaser Server on Ruby
 #
@@ -8,6 +8,8 @@
 # http://opensource.org/licenses/mit-license.php
 #
 # ※公式のサーバーと同一の動作を保証するものではありません。
+#
+# 2018-10-15 putによる相打ちの勝敗判定を変更
 
 require 'socket'
 require 'pp'
@@ -44,7 +46,7 @@ life=[1,1]              # 生死 ( GetReadyで返す1バイト目 )
 wait = 0.5              # 表示速度のウェイト（秒）
 step_count = 0          # ポーズモード用カウンタ
 values = Array.new(10)  # 送信データ用領域
-
+put_winner = 0
 #
 # 関数定義
 #
@@ -417,6 +419,7 @@ $stdin.gets
     2.times do |j|
       if get_map_value(@chara_x[j],@chara_y[j],j) == M_BLOCK then #  ブロックと重なってたらアウト
         life[j] = 0
+        put_winner = 1 - j
       end
       if get_map_value(@chara_x[j],@chara_y[j]-1,j) == M_BLOCK && # 四方がブロックならアウト
       get_map_value(@chara_x[j],@chara_y[j]+1,j) == M_BLOCK &&
@@ -461,11 +464,13 @@ $stdin.gets
     break # どちらかアウトならループ抜ける
   end
 end # ターン数のループ
+
 disp(@map)
 printf("\n\n")
+
 # 勝敗判定
 if life[0] == 0 && life[1] == 0 then
-  winner = 2 # 両者アウトなら引き分け
+  winner = put_winner # 両者アウトなら引き分け じゃなくて put した方が勝ち
 elsif life[0] == 0 && life[1] == 1 then
   winner = 1 # HOTの勝ち
 elsif life[0] == 1 && life[1] == 0 then
